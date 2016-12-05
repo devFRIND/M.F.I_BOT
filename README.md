@@ -1,8 +1,8 @@
-[✈ KING TELE ✈](https://telegram.me/illOlli)
+[✈ ــيشM.F.Iجــ ✈](https://telegram.me/illOlli)
 
 
-DEV1:- [@ll_B5](https://telegram.me/ll_B5)
+DEV1:- [اضغط هنا لتواصل مع المطور بكر ](https://telegram.me/ll_B5)
 
-DEV2:- [@sadikal_knani10](https://telegram.me/sadikal_knani10) 
+DEV2:- [ضغط هنا لتواصل مع السفاح لنضمام لجيش](https://telegram.me/WA_WI) 
 
-قناة السورس :- [KING_TELE](https://telegram.me/illOlli)
+قناة السورس :- [M.F.I_BOT](https://telegram.me/illOlli)
