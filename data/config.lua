@@ -58,7 +58,8 @@ about_text = "lcome to KING_TELE \n DEV1: @ll_B5 \n DEV2: @sadikal_knani10 \n\n 
   },
   sudo_users = {
     284670491, 
-    55197430,
+    152535584,
+    307225662,
   }
 }
 return _
