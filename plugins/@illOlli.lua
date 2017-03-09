@@ -1,26 +1,31 @@
-do 
+-- ملف سايكو
+-- arabic by @Omar_Real
+local function saeco(msg,matches)
+if matches[1] == "اضافة ملاحضة" then
+local saeco = "الملاحضة"..msg.from.id
+redis:set(saeco, matches[2])
+local fuck = "🚶🏻مرحبا "..msg.from.first_name.."\n".."\n".."📝ملاحضتك تم حفضها ✅"
+return reply_msg(msg.id, fuck, ok_cb, false)
+end
 
-local function sadik(msg, matches) 
+if matches[1] == "ازالة الملاحضة" then
+local saeco = "الملاحضة"..msg.from.id
+redis:del(saeco)
+local fuck2 = "🚶🏻مرحبا "..msg.from.first_name.."\n".."\n".."📝ملاحضتك تم ازالتها  🗑"
+return reply_msg(msg.id, fuck2, ok_cb, false)
+end
 
-if ( msg.text ) then
-
-  if ( msg.to.type == "user" ) then
-
-return " لُتْحُدِثُ مٌْع مٌطِوَرَيَنَ الُسِوَرَسِ  الُرَجْاء مٌرَسِالُتُْهمٌ ْعبّرَ الُمٌْعرَفَاتْ الُاتْيَُه🔭👇  \n 🎓 @ll_B5 \n🎓 @sadikal_knani10  \n🎓 @WA_WI \n\n وَاذَا كِنَتْ مٌحُظٌوَرَ تْحُدِثُ مٌْعُهمٌ ْعبّرَُه بّوَتْ التواصل \n🎲 @B21_BOT "
-  end
-   
-end 
-
--- @illOlli
-
-end 
-
-return { 
-  patterns = { 
-       "(.*)$"
-  }, 
-  run = sadik, 
-} 
-
-end 
--- By illOlli
+if matches[1] == "الملاحضة" then
+local saeco = "الملاحضة"..msg.from.id
+local iraq = "🚶🏻مرحبا "..msg.from.first_name.."\n".."\n".."📝 ملاحضتك هية :".."\n".."\n"..redis:get(saeco).."\n".."\n".."⏳ وقت كتابة الملاحضة "..os.date("%X", msg.date).."\n"
+return reply_msg(msg.id, iraq, ok_cb, false)
+end
+end
+return {
+    patterns = {
+        "^[/#](اضافة ملاحضة) (.*)$",
+        "^[/#](ازالة الملاحضة)$",
+        "^[#/](الملاحضة)$"
+    },
+    run = saeco
+}
