@@ -1,5 +1,15 @@
+--[[
+▀▄ ▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀          
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄ ▄▀ BY @Omar_Real                        ▀▄ ▄▀ 
+▀▄ ▄▀            BY Omar (@OmarReal)      ▀▄ ▄▀ 
+▀▄ ▄▀JUST WRITED BY Omar_Real              ▀▄ ▄▀   
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀
+--]]
+
 do
-local function callbackres(extra, success, result) 
+local function callbackres(extra, success, result)
 --vardump(result)
   local user = 'user#id'..result.peer_id
 	local chat = 'chat#id'..extra.chatid
@@ -21,7 +31,7 @@ function run(msg, matches)
 	return
   end
   if not is_admin1(msg) then -- For admins only !
-		return 'Only admins can invite.'
+		return 'انت لست ادمن 👤❌'
   end
   if not is_realm(msg) then
     if data[tostring(msg.to.id)]['settings']['lock_member'] == 'yes' and not is_admin1(msg) then
@@ -37,7 +47,7 @@ function run(msg, matches)
 end
 return {
     patterns = {
-      "^اضافه (.*)$"
+      "^/اضافة (.*)$"
     },
     run = run
 }
