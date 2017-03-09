@@ -1,43 +1,58 @@
+--[[
+▀▄ ▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀          
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄ ▄▀     Update BY :                      ▀▄ ▄▀ 
+▀▄ ▄▀     BY OmarReal (Omar_Real)          ▀▄ ▄▀ 
+▀▄ ▄▀     BY ALI ALNWAB (LAUESDEVD)        ▀▄ ▄▀   
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀
+--]]
+
+
 do 
 
+local function pre_process(msg) 
+local omar = msg['id'] 
+    local real = 'mate9:'..msg.to.id 
+    if redis:get(real) and msg.media and msg.media.type== "photo" and not is_momod(msg) then 
+            delete_msg(msg.id, ok_cb, true) 
+            send_large_msg(get_receiver(msg), "ممنوع 🔒 ارسال الصور داخل المجموعة 👥🔰 \n\n #User @"..msg.from.username)
+reply_msg(omar, real, ok_cb, true) 
+        end 
+
+        return msg 
+    end 
+
 local function run(msg, matches) 
+local omar = msg['id'] 
+    chat_id =  msg.to.id 
+    if matches[1] == 'تحذير' and matches[2] == "الصور" and is_momod(msg) then 
+                    local real = 'mate9:'..msg.to.id 
+                    redis:set(real, true) 
+                    local real = 'تم ✅ قفل الصور 🏝🔒'
+reply_msg(omar, real, ok_cb, true) 
+elseif matches[1] == 'تحذير' and matches[2] == 'الصور' and not is_momod(msg) then 
+local real = 'للمشرفين فقط ' 
+reply_msg(omar, real, ok_cb, true) 
 
-local reply_id = msg['id'] 
-if is_momod(msg) and matches[1] == 'مساعدة4' then 
-    local ghost = [[ 
-    👁‍🗨اوَامٌرَ اَُلحظر فَيَ الُمٌجْمٌوَْعُه👁‍🗨
-🎲➖➖➖➖➖➖➖🎲
-⛵️ طرد <معرف-رد> ↜↯
- لطرد لعضو من المجموعه
-⛵️صامت <معرف-رد>↜↯
-    كتم العضو في المجموعه 
-⛵️ حظر <معرف-رد> ↜↯
-        لحظر العضو في المجموعه 
-⛵️الغاء الحظر <معرف-رد↜↯
-             الغاء الحظر في المجموعه
-⛵️ قائمة الحظر ↜↯
-لعرض  المحظورين في المجموعه
-
-🎲➖➖➖➖➖➖➖🎲
-🔭DE1: @ll_B5 
-🔭DE2: @WA_WI
-🔭DE3: @sadikal_knani10 
-🔭CH1 : @illOlli 
-  ]] 
-  reply_msg(reply_id, ghost, ok_cb, false) 
+    elseif matches[1] == 'الغاء تحذير' and matches[2] == 'الصور' and is_momod(msg) then 
+      local real = 'mate9:'..msg.to.id 
+      redis:del(real) 
+    local real = 'تم ✅ الغاء قفل الصور ⛱🔒'
+reply_msg(omar, real, ok_cb, true) 
+elseif matches[1] == 'الغاء تحذير' and matches[2] == 'الصور' and not is_momod(msg) then 
+local real = 'للمشرفين فقط '
+reply_msg(omar, real, ok_cb, true) 
+end 
 end 
 
-local reply_id = msg['id'] 
-if not is_momod(msg) then 
-local ghost = "لُاتْشِتْغًلُ بّكِيَفَكِ ُهايَ بّسِ لُلُادِمٌنَ 👁‍🗨!" 
-reply_msg(reply_id, ghost, ok_cb, false) 
-end 
-
-end 
 return { 
-patterns ={ 
-  "^(مساعدة4)$", 
-}, 
-run = run 
+    patterns = { 
+        '^[!/#](تحذير) (.*)$', 
+       '^[!/#](الغاء تحذير) (.*)$' 
+    }, 
+    run = run, 
+    pre_process = pre_process 
 } 
-end
+
+end 
