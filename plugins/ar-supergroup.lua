@@ -38,7 +38,7 @@ local function check_member_super(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-	  local text = 'تم تفعيل المجموعة ✅🍁\n\n 🛰 MSG BY :-@'..msg.from.username..'\n' 
+	  local text = 'تم تفعيل المجموعة ✅🍁'
       return reply_msg(msg.id, text, ok_cb, false)
     end
   end
@@ -62,7 +62,7 @@ local function check_member_superrem(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-	  local text = 'تم الغاء تفعيل المجموعة ✅🍁\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+	  local text = 'تم الغاء تفعيل المجموعة ✅🍁'
       return reply_msg(msg.id, text, ok_cb, false)
     end
   end
@@ -103,13 +103,13 @@ end
 
 --Get and output info about supergroup
 local function callback_info(cb_extra, success, result)
-local title ="⛵ معــلومات المجموعة: ["..result.title.."]\n\n"
-local admin_num = "⛵ عــدد الادمنيه: "..result.admins_count.."\n"
-local user_num = "⛵ عــدد الاعضــاء: "..result.participants_count.."\n"
-local kicked_num = "⛵ المحظــورين: "..result.kicked_count.."\n"
-local channel_id = "⛵ ايدي : "..result.peer_id.."\n"
+local title ="Info for SuperGroup: ["..result.title.."]\n\n"
+local admin_num = "Admin count: "..result.admins_count.."\n"
+local user_num = "User count: "..result.participants_count.."\n"
+local kicked_num = "Kicked user count: "..result.kicked_count.."\n"
+local channel_id = "ID: "..result.peer_id.."\n"
 if result.username then
-	channel_username = "⛵ معــرف المجموعه : @"..result.username
+	channel_username = "Username: @"..result.username
 else
 	channel_username = ""
 end
@@ -178,12 +178,12 @@ local function lock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == 'yes' then
-    local omar = 'منع ❌ الروابط مفعل سابقا 🔒🛢\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الروابط مفعل سابقا 🔒🛢'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_link'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع الروابط 🔒🛢\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع الروابط 🔒🛢'
    return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -194,12 +194,12 @@ local function unlock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == 'no' then
-    local omar = 'منع ❌ الروابط غير مفعل  🔒🛢\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الروابط غير مفعل  🔒🛢'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_link'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الروابط 🔓🛢\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الروابط 🔓🛢'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -214,12 +214,12 @@ local function lock_group_spam(msg, data, target)
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
   if group_spam_lock == 'yes' then
-    local omar = 'منع ❌ الكلايش الطويلة مفعل سابقا 🔒📊\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الكلايش الطويلة مفعل سابقا 🔒📊'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_spam'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع الكلايش 🔒📊\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع الكلايش 🔒📊'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -230,12 +230,12 @@ local function unlock_group_spam(msg, data, target)
   end
   local group_spam_lock = data[tostring(target)]['settings']['lock_spam']
   if group_spam_lock == 'no' then
-    local omar = 'منع ❌ الكلايش غير مفعل 🔓📊\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الكلايش غير مفعل 🔓📊'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_spam'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الكلايش 🔓📊\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الكلايش 🔓📊'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -246,12 +246,12 @@ local function lock_group_flood(msg, data, target)
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
   if group_flood_lock == 'yes' then
-    local omar = 'منع ❌ التكرار مفعل سابقا 🔒🎛\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ التكرار مفعل سابقا 🔒🎛'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['flood'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع التكرار 🔒🎛\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع التكرار 🔒🎛'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -262,12 +262,12 @@ local function unlock_group_flood(msg, data, target)
   end
   local group_flood_lock = data[tostring(target)]['settings']['flood']
   if group_flood_lock == 'no' then
-    local omar = 'منع ❌ التكرار غير مفعل 🔓🎛\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ التكرار غير مفعل 🔓🎛'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['flood'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع التكرار 🔓🎛\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع التكرار 🔓🎛'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -278,12 +278,12 @@ local function lock_group_arabic(msg, data, target)
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
   if group_arabic_lock == 'yes' then
-    local omar = 'منع ❌ الغة العربية مفعل سابقا 🔒🇾🇪 \n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الغة العربية مفعل سابقا 🔒🇾🇪 '
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_arabic'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع الغة العربية 🔒🇾🇪\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع الغة العربية 🔒🇾🇪'
    return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -294,12 +294,12 @@ local function unlock_group_arabic(msg, data, target)
   end
   local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
   if group_arabic_lock == 'no' then
-    local omar = 'منع ❌ الغة العربية غير مفعل 🔓🇾🇪\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الغة العربية غير مفعل 🔓🇾🇪'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_arabic'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الغة العربية 🔓🇾🇪\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الغة العربية 🔓🇾🇪'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -310,13 +310,13 @@ local function lock_group_membermod(msg, data, target)
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
   if group_member_lock == 'yes' then
-    local omar = 'الاضافه مقفولة سابقا 🔒👤\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'الاضافه مقفولة سابقا 🔒👤'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_member'] = 'yes'
     save_data(_config.moderation.data, data)
   end
-  local omar = 'تم ✅ تفعيل منع الاضافه 🔒👤\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+  local omar = 'تم ✅ تفعيل منع الاضافه 🔒👤'
   return reply_msg(msg.id, omar, ok_cb, false)
 end
 
@@ -326,12 +326,12 @@ local function unlock_group_membermod(msg, data, target)
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
   if group_member_lock == 'no' then
-    local omar = 'منع ❌ الاضافة غير مفعل 🔓👤\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الاضافة غير مفعل 🔓👤'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_member'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الاضافه ��👤\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الاضافه ��👤'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -342,12 +342,12 @@ local function lock_group_rtl(msg, data, target)
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
   if group_rtl_lock == 'yes' then
-    local omar = 'منع ❌ الاشعارات مفعل سابقا 🔒📲\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الاشعارات مفعل سابقا 🔒📲'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_rtl'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع الاشعارات 🔒📲\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع الاشعارات 🔒📲'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -358,12 +358,12 @@ local function unlock_group_rtl(msg, data, target)
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_rtl']
   if group_rtl_lock == 'no' then
-    local omar = 'منع ❌ الاشاعارات غير مفعل 🔓📲\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الاشاعارات غير مفعل 🔓📲'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_rtl'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الاشعارات 🔓📲\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الاشعارات 🔓📲'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -374,12 +374,12 @@ local function lock_group_sticker(msg, data, target)
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'yes' then
-    local omar = 'منع ❌ الملصقات مفعل سابقا 🔒🃏\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الملصقات مفعل سابقا 🔒🃏'
    return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_sticker'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع الملصقات 🔒🃏\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع الملصقات 🔒🃏'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -390,12 +390,12 @@ local function unlock_group_sticker(msg, data, target)
   end
   local group_sticker_lock = data[tostring(target)]['settings']['lock_sticker']
   if group_sticker_lock == 'no' then
-    local omar = 'منع ❌ الملصقات غير مفعل 🔓🃏\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ الملصقات غير مفعل 🔓🃏'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_sticker'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع الملصقات 🔓🃏\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع الملصقات 🔓🃏'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -406,12 +406,12 @@ local function lock_group_contacts(msg, data, target)
   end
   local group_rtl_lock = data[tostring(target)]['settings']['lock_contacts']
   if group_contacts_lock == 'yes' then
-    local omar = 'منع ❌ جهات الاتصال مفعل سابقا 🔒📱\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ جهات الاتصال مفعل سابقا 🔒📱'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_contacts'] = 'yes'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ تفعيل منع جهات الاتصال 🔒📱\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ تفعيل منع جهات الاتصال 🔒📱'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -422,12 +422,12 @@ local function unlock_group_contacts(msg, data, target)
   end
   local group_contacts_lock = data[tostring(target)]['settings']['lock_contacts']
   if group_contacts_lock == 'no' then
-    local omar = 'منع ❌ جهات الاتصال غير مفعل 🔓📱\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'منع ❌ جهات الاتصال غير مفعل 🔓📱'
     return reply_msg(msg.id, omar, ok_cb, false)
   else
     data[tostring(target)]['settings']['lock_contacts'] = 'no'
     save_data(_config.moderation.data, data)
-    local omar = 'تم ✅ الغاء تفعيل منع جهات الاتصال 🔓📱\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'تم ✅ الغاء تفعيل منع جهات الاتصال 🔓📱'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
 end
@@ -469,7 +469,7 @@ local function set_rulesmod(msg, data, target)
   local data_cat = 'rules'
   data[tostring(target)][data_cat] = rules
   save_data(_config.moderation.data, data)
-  local omar = 'تم اضافت قوانين للمجموعة 📋✅\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+  local omar = 'تم اضافت قوانين للمجموعة 📋✅'
   return reply_msg(msg.id, omar, ok_cb, false)
 end
 
@@ -477,7 +477,7 @@ end
 local function get_rules(msg, data)
   local data_cat = 'rules'
   if not data[tostring(msg.to.id)][data_cat] then
-    local omar = 'ليس هناك قوانين ❌\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+    local omar = 'ليس هناك قوانين ❌'
     return reply_msg(msg.id, omar, ok_cb, false)
   end
   local rules = data[tostring(msg.to.id)][data_cat]
@@ -600,7 +600,7 @@ local function promote2(receiver, member_username, user_id)
   end
   data[group]['moderators'][tostring(user_id)] = member_tag_username
   save_data(_config.moderation.data, data)
-  send_large_msg(receiver, member_username..' تم اضافته ادمن في المجموعه ☺🍁')
+  send_large_msg(receiver, member_username..' تم اضافته ادمن 👤✅')
 end
 
 local function demote2(receiver, member_username, user_id)
@@ -755,7 +755,7 @@ function get_message_callback(extra, success, result)
 		promote2("channel#id"..result.to.peer_id, member_username, member_id)
 	    --channel_set_mod(channel_id, user, ok_cb, false)
 		end
-	elseif get_cmd == "تنزيل ادمن" then
+	elseif get_cmd == "ازالة" then
 		local full_name = (result.from.first_name or '')..' '..(result.from.last_name or '')
 		local member_name = full_name:gsub("‮", "")
 		local member_username = member_name:gsub("_", " ")
@@ -833,7 +833,7 @@ local function cb_user_info(extra, success, result)
 			member_username = string.gsub(result.print_name, '_', ' ')
 		end
 		promote2(receiver, member_username, user_id)
-	elseif get_cmd == "تنزيل ادمن" then
+	elseif get_cmd == "ازالة" then
 		if result.username then
 			member_username = "@"..result.username
 		else
@@ -916,7 +916,7 @@ local function callbackres(extra, success, result)
 		--local user = "user#id"..result.peer_id
 		promote2(receiver, member_username, user_id)
 		--channel_set_mod(receiver, user, ok_cb, false)
-	elseif get_cmd == "تنزيل ادمن" then
+	elseif get_cmd == "ازالة" then
 		local receiver = extra.channel
 		local user_id = result.peer_id
 		local user = "user#id"..result.peer_id
@@ -1115,7 +1115,7 @@ local function run(msg, matches)
 				return
 			end
 			if is_super_group(msg) then
-				return reply_msg(msg.id, 'المجموعة مفعله 👥✅\n\n 🛰 MSG BY :-@'..msg.from.username..'\n', ok_cb, false)
+				return reply_msg(msg.id, 'المجموعة مفعلة 👥✅', ok_cb, false)
 			end
 			print("SuperGroup "..msg.to.print_name.."("..msg.to.id..") added")
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] added SuperGroup")
@@ -1126,7 +1126,7 @@ local function run(msg, matches)
 
 		if matches[1] == 'الغاء التفعيل' and is_admin1(msg) and not matches[2] then
 			if not is_super_group(msg) then
-				return reply_msg(msg.id, 'المجموعة غير مفعلة 👥🔕\n\n 🛰 MSG BY :-@'..msg.from.username..'\n', ok_cb, false)
+				return reply_msg(msg.id, 'المجموعة غير مفعلة 👥🔕', ok_cb, false)
 			end
 			print("SuperGroup "..msg.to.print_name.."("..msg.to.id..") removed")
 			superrem(msg)
@@ -1267,11 +1267,11 @@ local function run(msg, matches)
 			end
 		end
 
-		if matches[1] == 'تغير الرابط' and is_momod(msg)then
+		if matches[1] == 'غير الرابط' and is_momod(msg)then
 			local function callback_link (extra , success, result)
 			local receiver = get_receiver(msg)
 				if success == 0 then
-					send_large_msg(receiver, 'هاذه ليست احدى مجموعاتي 👥❌\n\n 🛰 MSG BY :-@'..msg.from.username..'\n')
+					send_large_msg(receiver, 'هاذه ليست احدى مجموعاتي 👥❌')
 					data[tostring(msg.to.id)]['settings']['set_link'] = nil
 					save_data(_config.moderation.data, data)
 				else
@@ -1287,7 +1287,7 @@ local function run(msg, matches)
 		if matches[1] == 'اضافت رابط' and is_owner(msg) then
 			data[tostring(msg.to.id)]['settings']['set_link'] = 'waiting'
 			save_data(_config.moderation.data, data)
-			local omar = 'قم بأرسال الرابط ✅🍁\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+			local omar = 'قم بأرسال الرابط ✅🍁'
 			return reply_msg(msg.id, omar, ok_cb, false)
 		end
 
@@ -1486,7 +1486,7 @@ local function run(msg, matches)
 			return "ok"
 		end
 
-		if matches[1] == 'تنزيل ادمن' then
+		if matches[1] == 'ازالة' then
 			if not is_momod(msg) then
 				return
 			end
@@ -1495,20 +1495,20 @@ local function run(msg, matches)
 			end
 			if type(msg.reply_id) ~= "nil" then
 				local cbreply_extra = {
-					get_cmd = 'تنزيل ادمن',
+					get_cmd = 'ازالة',
 					msg = msg
 				}
 				demote = get_message(msg.reply_id, get_message_callback, cbreply_extra)
-			elseif matches[1] == 'تنزيل ادمن' and string.match(matches[2], '^%d+$') then
+			elseif matches[1] == 'ازالة' and string.match(matches[2], '^%d+$') then
 				local receiver = get_receiver(msg)
 				local user_id = "user#id"..matches[2]
-				local get_cmd = 'تنزيل ادمن'
+				local get_cmd = 'ازالة'
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] demoted user#id"..matches[2])
 				user_info(user_id, cb_user_info, {receiver = receiver, get_cmd = get_cmd})
 			elseif not string.match(matches[2], '^%d+$') then
 				local cbres_extra = {
 					channel = get_receiver(msg),
-					get_cmd = 'تنزيل ادمن'
+					get_cmd = 'ازالة'
 				}
 				local username = matches[2]
 				local username = string.gsub(matches[2], '@', '')
@@ -1574,7 +1574,7 @@ local function run(msg, matches)
 			data[tostring(msg.to.id)]['settings']['set_photo'] = 'waiting'
 			save_data(_config.moderation.data, data)
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] started setting new SuperGroup photo")
-			local omar = 'قم بأرسال الصورة الان 🌅👥\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+			local omar = 'قم بأرسال الصورة الان 🌅👥'
 			return reply_msg(msg.id, omar, ok_cb, false)
 		end
 
@@ -1647,7 +1647,7 @@ local function run(msg, matches)
 			end
 		end
 
-		if matches[1] == 'قفل' and is_momod(msg) then
+		if matches[1] == 'اقفل' and is_momod(msg) then
 			local target = msg.to.id
 			if matches[2] == 'الروابط' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked link posting ")
@@ -1687,7 +1687,7 @@ local function run(msg, matches)
 			end
 		end
 
-		if matches[1] == 'فتح' and is_momod(msg) then
+		if matches[1] == 'افتح' and is_momod(msg) then
 			local target = msg.to.id
 			if matches[2] == 'الروابط' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked link posting")
@@ -1738,7 +1738,7 @@ local function run(msg, matches)
 			data[tostring(msg.to.id)]['settings']['flood_msg_max'] = flood_max
 			save_data(_config.moderation.data, data)
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] set flood to ["..matches[2].."]")
-			local omar = 'تم ✅ وضع التكرار في المجموعه للعدد 🎛👈🏿: '..matches[2]..'\n'
+			local omar = 'تم ✅ وضع التكرار للعدد 🎛👈🏿: '..matches[2]..'\n'
 			return reply_msg(msg.id, omar, ok_cb, false)
 		end
 		if matches[1] == 'public' and is_momod(msg) then
@@ -1753,17 +1753,17 @@ local function run(msg, matches)
 			end
 		end
 
-		if matches[1] == 'قفل' and is_owner(msg) then
+		if matches[1] == 'اقفل' and is_owner(msg) then
 			local chat_id = msg.to.id
 			if matches[2] == 'الصوتيات' then
 			local msg_type = 'Audio'
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع الصوتيات 🔒📢"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع الصوتيات 🔒📢"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الصوتيات مفعل سابقا 🔒📢"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الصوتيات مفعل سابقا 🔒📢"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1772,22 +1772,22 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع الصور 🔒📷 "..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع الصور 🔒📷 "..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الصور مفعل سابقا 🔒📷"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الصور مفعل سابقا 🔒📷"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
-			if matches[2] == 'الفيديوات' then
+			if matches[2] == 'الفديوات' then
 			local msg_type = 'Video'
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع الفديوات 🔒🎥"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع الفديوات 🔒🎥"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الفديوات مفعل سابقا 🔒🎥"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الفديوات مفعل سابقا 🔒🎥"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1796,10 +1796,10 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع الصور المتحركة 🔒🗾"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع الصور المتحركة 🔒🗾"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الصور المتحركة مفعل سابقا 🔒🗾"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الصور المتحركة مفعل سابقا 🔒🗾"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1808,10 +1808,10 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع الملفات 🔒📁"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع الملفات 🔒📁"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الملفات مفعل سابقا 🔒📁"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الملفات مفعل سابقا 🔒📁"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1820,7 +1820,7 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ تفعيل منع النص 🔒🗒"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ تفعيل منع النص 🔒🗒"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
 					local omar = "منع ❌ النص مفعل سابقا 🔒🗒"..'\n'
@@ -1832,25 +1832,25 @@ local function run(msg, matches)
 				if not is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: mute "..msg_type)
 					mute(chat_id, msg_type)
-					local omar = "تم ✅ قفل المحادثه 🔒👥"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ قفل المحادثه 🔒👥"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "المحادثه  مقفولة 🔒👥"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "المحادثه  مقفولة 🔒👥"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
 		end
-		if matches[1] == 'فتح' and is_momod(msg) then
+		if matches[1] == 'افتح' and is_momod(msg) then
 			local chat_id = msg.to.id
 			if matches[2] == 'الصوتيات' then
 			local msg_type = 'Audio'
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ الغاء تفعيل منع الصوتيات 🔓📢"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ الغاء تفعيل منع الصوتيات 🔓📢"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الصوتيات غير مفعل 🔓📢"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الصوتيات غير مفعل 🔓📢"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1859,22 +1859,22 @@ local function run(msg, matches)
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ الغاء تفعيل منع الصور 🔓📷"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ الغاء تفعيل منع الصور 🔓📷"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع الصور غير مفعل 🔓📷"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع الصور غير مفعل 🔓📷"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
-			if matches[2] == 'الفيديوات' then
+			if matches[2] == 'الفديوات' then
 			local msg_type = 'Video'
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ الغاء تفعيل منع الفيديوات"..'\n'
+					local omar = "تم ✅ الغاء تفعيل منع الفديوات"..'\n'
 				 return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الفيديوات غير مفعل 🔓🎥"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الفديوات غير مفعل 🔓🎥"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1883,10 +1883,10 @@ local function run(msg, matches)
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ الغاء تفعيل منع الصور المتحركة 🔓🗾"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ الغاء تفعيل منع الصور المتحركة 🔓🗾"
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الصور المتحركة غير مفعل 🔓🗾"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الصور المتحركة غير مفعل 🔓🗾"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1895,10 +1895,10 @@ local function run(msg, matches)
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ الغاء تفعيل منع الملفات 🔓📁"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ الغاء تفعيل منع الملفات 🔓📁"
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ الملفات غير مفعل 🔓📁 "..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ الملفات غير مفعل 🔓📁 "..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1907,10 +1907,10 @@ local function run(msg, matches)
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute message")
 					unmute(chat_id, msg_type)
-					local omar = " تم ✅ الغاء تفعيل منع النص 🔓🗒"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = " تم ✅ الغاء تفعيل منع النص 🔓🗒"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "منع ❌ النص غير مفعل 🔓🗒"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "منع ❌ النص غير مفعل 🔓🗒"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -1919,10 +1919,10 @@ local function run(msg, matches)
 				if is_muted(chat_id, msg_type..': yes') then
 					savelog(msg.to.id, name_log.." ["..msg.from.id.."] set SuperGroup to: unmute "..msg_type)
 					unmute(chat_id, msg_type)
-					local omar = "تم ✅ فتح المحادثه"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "تم ✅ فتح المحادثه"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				else
-					local omar = "المحادثه غير ❌ مقفولة 👥🔕"..'\n\n 🛰 MSG BY :-@'..msg.from.username..'\n'
+					local omar = "المحادثه غير ❌ مقفولة 👥🔕"..'\n'
 					return reply_msg(msg.id, omar, ok_cb, false)
 				end
 			end
@@ -2056,27 +2056,27 @@ return {
 	"^/(الادمنية)$",
 	"^/(البوتات)$",
 	"^/(تحويل سوبر)$",
-	"^/(مغادرة)$",
+	--"^/(مغادرة)$",
 	"^/([Kk]ick) (.*)$",
-	"^/(تغير الرابط)$",
+	"^/(غير الرابط)$",
 	"^/(اضافت رابط)$",
 	"^/(الرابط)$",
 	"^/(ترقية) (.*)$",
 	"^/(ترقية)$",
 	"^/(ارفع ادمن) (.*)$",
 	"^/(ارفع ادمن)",
-	"^/(تنزيل ادمن) (.*)$",
-	"^/(تنزيل ادمن)",
+	"^/(ازالة) (.*)$",
+	"^/(ازالة)",
 	"^/(ضع الاسم) (.*)$",
 	"^/(ضع الوصف) (.*)$",
 	"^/(ضع القوانين) (.*)$",
 	"^/(ضع الصورة)$",
 	"^/(ضع المعرف) (.*)$",
 	"^/(مسح)$",
-	"^/(قفل) (.*)$",
-	"^/(فتح) (.*)$",
-	"^/(قفل) ([^%s]+)$",
-	"^/(فتح) ([^%s]+)$",
+	"^/(اقفل) (.*)$",
+	"^/(افتح) (.*)$",
+	"^/(اقفل) ([^%s]+)$",
+	"^/(افتح) ([^%s]+)$",
 	"^/(صامت)$",
 	"^/(صامت) (.*)$",
 	"^/(الاعدادات)$",
@@ -2084,42 +2084,7 @@ return {
 	"^/(ضع التكرار) (%d+)$",
 	"^/(امسح) (.*)$",
 	"^/(الاوامر المكتومة)$",
-	 	"^(تفعيل)$",
-	"^(الغاء التفعيل)$",
-	"^(المدير)$",
-	"^(الادمنية)$",
-	"^(البوتات)$",
-	"^(تحويل سوبر)$",
-	"^(مغادرة)$",
-	"^([Kk]ick) (.*)$",
-	"^(تغير الرابط)$",
-	"^(اضافت رابط)$",
-	"^(الرابط)$",
-	"^(ترقية) (.*)$",
-	"^(ترقية)$",
-	"^(ارفع ادمن) (.*)$",
-	"^(ارفع ادمن)",
-	"^(تنزيل ادمن) (.*)$",
-	"^(تنزيل ادمن)",
-	"^(ضع الاسم) (.*)$",
-	"^(ضع الوصف) (.*)$",
-	"^(ضع القوانين) (.*)$",
-	"^(ضع الصورة)$",
-	"^(ضع المعرف) (.*)$",
-	"^(مسح)$",
-	"^(قفل) (.*)$",
-	"^(فتح) (.*)$",
-	"^(قفل) ([^%s]+)$",
-	"^(فتح) ([^%s]+)$",
-	"^(صامت)$",
-	"^(صامت) (.*)$",
-	"^(الاعدادات)$",
-	"^(القوانين)$",
-	"^(ضع التكرار) (%d+)$",
-	"^(امسح) (.*)$",
-	"^(الاوامر المكتومة)$",
-	"^(قائمة المكتومين)$",
-"^/(قائمة المكتومين)$",
+	"^/(قائمة المكتومين)$",
     "(mp) (.*)",
 	"(md) (.*)",
     "^(https://telegram.me/joinchat/%S+)$",
@@ -2136,5 +2101,5 @@ return {
 }
 --End supergrpup.lua
 
--- Arabic By @ll_B5 
--- reply by @ll_B5
+-- Arabic By @OmarReal 
+-- reply by @Omar_Real
