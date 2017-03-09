@@ -1,45 +1,58 @@
+--[[
+▀▄ ▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀          
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄ ▄▀     Update BY :                      ▀▄ ▄▀ 
+▀▄ ▄▀     BY OmarReal (Omar_Real)          ▀▄ ▄▀ 
+▀▄ ▄▀     BY ALI ALNWAB (LAUESDEVD)        ▀▄ ▄▀   
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀
+--]]
+
 do 
 
-local function run(msg, matches) 
+local function pre_process(msg)
+local omar = msg['id']
+local rash = 'teamreal:'..msg.to.id
+local link = msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Mm][Ee]/") or msg.text:match("[Tt][Ll][Gg][Rr][Mm]%.[Mm][Ee]/") or msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Oo][Rr][Gg]") or msg.text:match("[Gg][Oo][Oo]%.[Gg][Li]/") or msg.text:match("[Aa][Dd][Ff]%.[Ll][Yy]/") or msg.text:match("[Bb][Ii][Tt]%.[Ll][Yy]") or msg.text:match("[Cc][Ff]%.[Ll][Yy]/") or msg.text:match("[Bb][Vv]%.[Vv][Cc]/") or msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Mm][Ee]")
+local bot = msg.text:match("?[Ss][Tt][Aa][Rr][Tt]=") or msg.text:match("?[Ss][Tt][Oo][Pp]=")
+            if link and redis:get(rash) and not bot then
+            delete_msg(msg.id, ok_cb, true)
+            send_large_msg(get_receiver(msg), "ممنوع  🔒مشاركة الصور - الروابط - الاعلانات \n المواقع هنا التزم بقوانين 🔰  المجموعة  \n\n #User @"..msg.from.username)
+        end 
 
-local reply_id = msg['id'] 
-if is_momod(msg) and matches[1] == 'مساعدة2' then 
-    local ghost = [[ 
-   🎓 اوَامٌـرَالثُانَوَيَُه في ََالُمٌجْمٌوَْعُه🎓
-🎲➖➖➖➖➖➖➖🎲
-⛵️الرابط   ★★ رابط المجموعة
- ⛵️اضافت رابط ★★ لوضع رابط
- ⛵️تغيرالرابط ★★ لتغير رابط
-⛵️ضع القوانين ★★ لوضع قوانين
- ⛵️القوانين ★★ لعرض القوانين
-⛵️ضع الوصف★★ لوضع وصف 
-⛵️ضع الاسم  ★★ لوضع اسم
-⛵️ضع الصورة   ★★ لوضع صورة 
- ⛵️حذف الادمنية★★الادمنيه
-⛵️ حذف الوصف ★★ الوصف
-⛵️حذف المكتومين ★★مكتومين
- ⛵️حذف القوانين ★★القوانين
-  
-🎲➖➖➖➖➖➖➖🎲
-🔭DE1: @ll_B5 
-🔭DE2: @WA_WI  
-🔭DE3: @sadikal_knani10 
-🔭CH : @illOlli 
-  ]] 
-  reply_msg(reply_id, ghost, ok_cb, false) 
+        return msg 
+    end 
+
+local function omar(msg, matches) 
+local omar = msg['id'] 
+    chat_id =  msg.to.id 
+    if matches[1] == 'تحذير' and matches[2] == "الروابط" and is_momod(msg) then 
+                    local rash = 'teamreal:'..msg.to.id 
+                    redis:set(rash, true) 
+                    local real = '  تم ✅ قفل الروابط مع التحذير 🔒' 
+reply_msg(omar, real, ok_cb, true) 
+elseif matches[1] == 'تحذير' and matches[2] == 'الروابط' and not is_momod(msg) then 
+local real = 'للمشرفين فقط' 
+reply_msg(omar, real, ok_cb, true) 
+
+    elseif matches[1] == 'الغاء تحذير' and matches[2] == 'الروابط' and is_momod(msg) then 
+      local rash = 'teamreal:'..msg.to.id 
+      redis:del(rash) 
+    local real = 'تم ✅ الغاء قفل الروابط مع التحذير 🔓' 
+reply_msg(omar, real, ok_cb, true) 
+elseif matches[1] == 'الغاء تحذير الروابط' and matches[2] == 'الروابط' and not is_momod(msg) then 
+local omar = 'للمشرفين فقط' 
+reply_msg(omar, real, ok_cb, true) 
+end 
 end 
 
-local reply_id = msg['id'] 
-if not is_momod(msg) then 
-local ghost = "Only Owner or Mod !" 
-reply_msg(reply_id, ghost, ok_cb, false) 
-end 
-
-end 
 return { 
-patterns ={ 
-  "^(مساعدة2)$", 
-}, 
-run = run 
+    patterns = { 
+        '^[!/#](تحذير) (.*)$', 
+        '^[!/#](الغاء تحذير) (.*)$' 
+    }, 
+    run = omar, 
+    pre_process = pre_process 
 } 
+
 end
