@@ -1,41 +1,59 @@
+--[[
+▀▄ ▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀          
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄ ▄▀    Update BY :                       ▀▄ ▄▀ 
+▀▄ ▄▀     BY OmarReal (Omar_Real)          ▀▄ ▄▀ 
+▀▄ ▄▀     BY ALI ALNWAB (LAUESDEVD)        ▀▄ ▄▀   
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀
+--]]
+
+
+
 do 
 
+local function pre_process(msg) 
+local omar = msg['id'] 
+    local omar1 = 'warn:'..msg.to.id 
+    if redis:get(omar1) and msg.media and msg.media.type== "audio" and not is_momod(msg) then 
+            delete_msg(msg.id, ok_cb, true) 
+             send_large_msg(get_receiver(msg), "#تنبيه ممنوع 🔒 ارسال الصوتيات داخل المجموعة 👥🔒 \n\n #User : @"..msg.from.username) 
+reply_msg(omar, dea, ok_cb, true) 
+        end 
+
+        return msg 
+    end 
+
 local function run(msg, matches) 
+local omar = msg['id'] 
+    chat_id =  msg.to.id 
+    if matches[1] == 'تحذير' and matches[2] == "الصوتيات" and is_momod(msg) then 
+                    local omar1 = 'warn:'..msg.to.id 
+                    redis:set(omar1, true) 
+                    local dd = 'تم ✅ تفعيل قفل الصوتيات مع التحذير 🔒'
+reply_msg(omar, dd, ok_cb, true) 
+elseif matches[1] == 'تحذير' and matches[2] == 'الصوتيات' and not is_momod(msg) then 
+local real = 'للمشرفين فقط عزيزي👿' 
+reply_msg(omar, real, ok_cb, true) 
 
-local reply_id = msg['id'] 
-if is_momod(msg) and matches[1] == 'مساعدة1' then 
-    local ghost = [[ 
-    👁‍🗨اوَامٌرَ الُاوَلُيَُه فَيَ الُمٌجْمٌوَْعُه👁‍🗨
-🎲➖➖➖➖➖➖➖🎲
-⛵️معلوماتي ★★  معلوماتك
-⛵️معلومات المجموعة★★ كروب
-⛵️اعدادات ★★اعدادت المجموعه
-⛵️موقعي ★★ لعرض رتبتك 
-⛵️ارفع ادمن★★  لرفع ادمن 
-⛵️تنزيل ادمن★★ لتنزيل ادمن  
- ⛵️الادمنيه   ★★ ادمنيه الكروب
-⛵️ايدي ★★ لعرض ايديك
-
-🎲➖➖➖➖➖➖➖🎲
-🔭DE1: @ll_B5 
-🔭DE2: @WA_WI
-🔭DE3: @sadikal_knani10 
-🔭CH1 : @illOlli 
-  ]] 
-  reply_msg(reply_id, ghost, ok_cb, false) 
+    elseif matches[1] == 'الغاء تحذير' and matches[2] == 'الصوتيات' and is_momod(msg) then 
+      local omar1 = 'warn:'..msg.to.id 
+      redis:del(omar1) 
+    local gg = 'تم ✅ الغاء تفعيل قفل الصوتيات مع التحذير 🔓 ' 
+reply_msg(omar, gg, ok_cb, true) 
+elseif matches[1] == 'الغاء تحذير' and matches[2] == 'الصوتيات' and not is_momod(msg) then 
+local real = 'للمشرفين فقط عزيزي 👿'
+reply_msg(omar, real, ok_cb, true) 
+end 
 end 
 
-local reply_id = msg['id'] 
-if not is_momod(msg) then 
-local ghost = "لُاتْشِتْغًلُ بّكِيَفَكِ ُهايَ بّسِ لُلُادِمٌنَ 👁‍🗨!" 
-reply_msg(reply_id, ghost, ok_cb, false) 
-end 
-
-end 
 return { 
-patterns ={ 
-  "^(مساعدة1)$", 
-}, 
-run = run 
+    patterns = { 
+        '^[!/#](تحذير) (.*)$', 
+       '^[!/#](الغاء تحذير) (.*)$' 
+    }, 
+    run = run, 
+    pre_process = pre_process 
 } 
-end
+
+end 
