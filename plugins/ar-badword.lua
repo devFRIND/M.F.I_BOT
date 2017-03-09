@@ -1,7 +1,17 @@
+--[[
+▀▄ ▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀▄▀▄▄▀▀▄▄▀▀▄▄▀▀▄▄▀▀          
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄ ▄▀    Update BY :                       ▀▄ ▄▀ 
+▀▄ ▄▀     BY OmarReal (Omar_Real)          ▀▄ ▄▀ 
+▀▄ ▄▀     BY ALI ALNWAB (LAUESDEVD)        ▀▄ ▄▀   
+▀▄ ▄▀                                      ▀▄ ▄▀ 
+▀▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▀▄▄▀▄▄▀▀
+--]]
+
 local function addword(msg, name)
     local hash = 'chat:'..msg.to.id..':badword'
-    redis:hset(hash, name, 'newword')
-    return "تم ☑️ اضافه 👍 كلمه جديده 🆕 الى قائمه 💢 المنع ❌\n>"..name
+    redis:hset(hash, name, 'nwrd')
+    return "تم ✅ حضر الكلمه🔅 \n>"..name
 end
 
 local function get_variables_hash(msg)
@@ -15,7 +25,7 @@ local function list_variablesbad(msg)
 
   if hash then
     local names = redis:hkeys(hash)
-    local text = 'قائمه 💢 المنع ❌ الكلمات المحظوره 🚫👍:\n\n'
+    local text = 'الكلمات المحضورة 🏵 :\n\n'
     for i=1, #names do
       text = text..'> '..names[i]..'\n'
     end
@@ -29,7 +39,7 @@ function clear_commandbad(msg, var_name)
   --Save on redis  
   local hash = get_variables_hash(msg)
   redis:del(hash, var_name)
-  return 'تم ☑️ تنظيف قائمه 💢 المنع ❌👍'
+  return ' تم ✔️ ازالة جميع الكلمات المحضورة ♻️'
 end
 
 local function list_variables2(msg, value)
@@ -37,7 +47,7 @@ local function list_variables2(msg, value)
   
   if hash then
     local names = redis:hkeys(hash)
-    local text = ''
+    local text = 'لطفا ❗️ حسن أخلاقك هذة الكلمة غير مسموح بها'
     for i=1, #names do
 	if string.match(value, names[i]) and not is_momod(msg) then
 	if msg.to.type == 'channel' then
@@ -67,7 +77,7 @@ function clear_commandsbad(msg, cmd_name)
   --Save on redis  
   local hash = get_variables_hash(msg)
   redis:hdel(hash, cmd_name)
-  return ''..cmd_name..'تم ☑️ الغاء الكلمه 💢 من قائمه المنع ❗️👍'
+  return ''..cmd_name.. ' تم ✔️ الغاء حضر الكلمه 🔆 '
 end
 
 local function run(msg, matches)
@@ -80,13 +90,13 @@ local function run(msg, matches)
   local text = addword(msg, name)
   return text
   end
-  if matches[2] == 'قائمه المنع' then
+  if matches[2] == 'الكلمات المحضورة' then
   return list_variablesbad(msg)
-  elseif matches[2] == 'تنظيف قائمه المنع' then
+  elseif matches[2] == 'ازالة الكلمات المحضورة' then
 if not is_momod(msg) then return '_|_' end
   local asd = '1'
     return clear_commandbad(msg, asd)
-  elseif matches[2] == 'الغاء منع' or matches[2] == 'rw' then
+  elseif matches[2] == 'op' or matches[2] == 'سماح' then
    if not is_momod(msg) then return '_|_' end
     return clear_commandsbad(msg, matches[3])
   else
@@ -98,11 +108,11 @@ end
 
 return {
   patterns = {
-  "^()(rw) (.*)$",
-  "^()(منع) (.*)$",
-   "^()(الغاء منع) (.*)$",
-    "^()(قائمه المنع)$",
-    "^()(تنظيف قائمه المنع)$",
+  "^([!/])(سماح) (.*)$",
+  "^([!/])(منع) (.*)$",
+   "^([!/])(op) (.*)$",
+    "^([!/])(الكلمات المحضورة)$",
+    "^([!/])(ازالة الكلمات المحضورة)$",
 "^(.+)$",
 	   
   },
